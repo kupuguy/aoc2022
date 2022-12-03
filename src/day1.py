@@ -1,8 +1,8 @@
 import heapq
 from pathlib import Path
 
-data = Path("data1.txt").read_text()
-data = [int(row) if row.strip() else None for row in Path("data1.txt").open()]
+data = Path("input/data1.txt").read_text()
+data = [int(row) if row.strip() else None for row in Path("input/data1.txt").open()]
 elves = []
 elves = [0]
 for row in data:

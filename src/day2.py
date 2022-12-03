@@ -26,7 +26,7 @@ print("test", score(test.split("\n"), SCORES))
 
 from pathlib import Path
 
-print("part 1", score(Path("data2.txt").read_text().strip().split("\n"), SCORES))
+print("part 1", score(Path("input/data2.txt").read_text().strip().split("\n"), SCORES))
 
 SCORES2 = {
     "AX": 3 + 0,
@@ -41,4 +41,4 @@ SCORES2 = {
 }
 print("test", score(test.split("\n"), SCORES2))
 
-print("part 2", score(Path("data2.txt").read_text().strip().split("\n"), SCORES2))
+print("part 2", score(Path("input/data2.txt").read_text().strip().split("\n"), SCORES2))

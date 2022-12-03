@@ -26,7 +26,7 @@ def process_1(data: str) -> int:
 
 assert process_1(TEST_DATA) == 157
 
-print("Part 1", process_1(Path("data3.txt").read_text()))
+print("Part 1", process_1(Path("input/data3.txt").read_text()))
 
 
 def score2(group: tuple) -> int:
@@ -49,4 +49,4 @@ def process_2(data: str) -> int:
 
 
 assert process_2(TEST_DATA) == 70
-print("Part 2", process_2(Path("data3.txt").read_text()))
+print("Part 2", process_2(Path("input/data3.txt").read_text()))
