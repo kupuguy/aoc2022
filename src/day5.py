@@ -23,7 +23,7 @@ DATA = (DATADIR / "data5.txt").read_text().splitlines()
 def parse(
     data: list[str], cols: int
 ) -> tuple[list[list[str]], list[tuple[int, int, int]]]:
-    stacks = [[] for _ in range(cols)]
+    stacks: list[list[str]] = [[] for _ in range(cols)]
     moves = []
     data = iter(data)
     for line in data:
@@ -61,7 +61,7 @@ assert test_score == EXPECTED_1
 print("part 1", score_1(DATA, 9))
 
 
-def score_2(data: list[str], cols: int) -> int:
+def score_2(data: list[str], cols: int) -> str:
     stacks, moves = parse(data, cols)
     for count, src, dest in moves:
         tmp = stacks[src - 1][-count:]
