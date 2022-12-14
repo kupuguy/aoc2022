@@ -60,15 +60,32 @@ assert test_score == EXPECTED_1
 print("part 1", score_1(DATA))
 
 
+def quicksand(
+    cave: set[complex], ymax: int, pos: complex = 500 + 0j
+) -> Generator[complex, None, None]:
+    cave.add(pos)
+    yield pos
+    down, left, right = 1j, -1 + 1j, 1 + 1j
+
+    if pos + down not in cave:
+        yield from quicksand(cave, ymax, pos + down)
+    if pos + left not in cave:
+        yield from quicksand(cave, ymax, pos + left)
+    if pos + right not in cave:
+        yield from quicksand(cave, ymax, pos + right)
+
+
 def score_2(data: list[str]) -> int:
     cave, ymax = parse(data)
     for x in range(500 - ymax - 4, 500 + ymax + 4):
         cave.add(x + (ymax + 2) * 1j)
 
-    count = 0
-    while sand(cave, ymax + 3):
-        count += 1
-    return count
+    # count = 0
+    # while sand(cave, ymax+3):
+    #     count += 1
+    # return count
+
+    return len(list(quicksand(cave, ymax + 3)))
 
 
 EXPECTED_2 = 93
