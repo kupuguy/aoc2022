@@ -126,13 +126,8 @@ def best_combined(
 
     value_open = 0
 
-    #if human == 'JJ' and elephant == 'DD':
-    #    print(human, human_time, elephant, elephant_time)
-
     if human_time >= elephant_time:
-        value_open = flow[human] * (human_time-1)
-        #if human_time > 20:
-        #    print(f"At {26-human_time} human open {human}")
+        value_open = flow[human] * (human_time - 1)
         options = [
             best_combined(
                 n, open | {n}, human_time - d - 1, elephant, elephant_time, flow, dists
@@ -142,16 +137,16 @@ def best_combined(
         ]
         if options:
             value_move, h_open, e_open = max(options, default=0, key=lambda r: r[0])
-            return value_open + value_move, h_open + [(human,human_time,value_open)], e_open
-
-        v,h,e = best_combined(
-                'AA', open, 0, elephant, elephant_time, flow, dists
+            return (
+                value_open + value_move,
+                h_open + [(human, human_time, value_open)],
+                e_open,
             )
-        return v+value_open,h+[(human,human_time,value_open)],e
+
+        v, h, e = best_combined("AA", open, 0, elephant, elephant_time, flow, dists)
+        return v + value_open, h + [(human, human_time, value_open)], e
     else:
-        value_open = flow[elephant] * (elephant_time-1)
-        #if elephant_time > 20:
-        #    print(f"At {26-elephant_time} elephant open {elephant}")
+        value_open = flow[elephant] * (elephant_time - 1)
         options = [
             best_combined(
                 human, open | {n}, human_time, n, elephant_time - d - 1, flow, dists
@@ -161,13 +156,14 @@ def best_combined(
         ]
         if options:
             value_move, h_open, e_open = max(options, default=0, key=lambda r: r[0])
-            # print(current, open, time, value_open, value_move)
-            return value_open + value_move, h_open, e_open + [(elephant,elephant_time,value_open)]
-
-        v,h,e = best_combined(
-                human, open, human_time, 'AA', 0, flow, dists
+            return (
+                value_open + value_move,
+                h_open,
+                e_open + [(elephant, elephant_time, value_open)],
             )
-        return v+value_open,h,e+[(elephant,elephant_time,value_open)]
+
+        v, h, e = best_combined(human, open, human_time, "AA", 0, flow, dists)
+        return v + value_open, h, e + [(elephant, elephant_time, value_open)]
 
 
 def score_2(data: list[str]) -> int:
@@ -196,13 +192,17 @@ def score_2(data: list[str]) -> int:
                 flows,
                 d,
             )
-            print(f"{human}, {elephant}, {score}, {path_human[::-1]}, {path_elephant[::-1]}")
+            print(
+                f"{human}, {elephant}, {score}, {path_human[::-1]}, {path_elephant[::-1]}"
+            )
             if score > best:
                 best, best_human, best_elephant = score, path_human, path_elephant
 
-    for v in sorted(best_human+best_elephant, key=lambda p: (p[1],p[0]), reverse=True):
+    for v in sorted(
+        best_human + best_elephant, key=lambda p: (p[1], p[0]), reverse=True
+    ):
         print(f"Minute {27-v[1]} open {v[0]} for {v[1]}*{flows[v[0]]}={v[2]}")
-    print("total=", sum(v[2] for v in best_human+best_elephant))
+    print("total=", sum(v[2] for v in best_human + best_elephant))
     print("Best path", best, best_human, best_elephant)
     return best
 
