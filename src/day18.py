@@ -65,7 +65,7 @@ def score_2(data: list[str]) -> int:
         min(c for a, b, c in cubes) - 1,
         max(c for a, b, c in cubes) + 1,
     )
-    #print(min_a, max_a, min_b, max_b, min_c, max_c)
+    # print(min_a, max_a, min_b, max_b, min_c, max_c)
     queue = deque([(max_a, max_b, max_c)])
     outside = {(max_a, max_b, max_c)}
     while queue:
