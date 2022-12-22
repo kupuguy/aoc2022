@@ -65,7 +65,6 @@ def options(
     states = set()
 
     if state.ore >= blueprint.geode_ore and state.obsidian >= blueprint.geode_obsidian:
-        # print(minutes, "# Build geode robot")
         states.add(
             replace(
                 state,
@@ -84,7 +83,6 @@ def options(
         and state.ore >= blueprint.obsidian_ore
         and state.clay >= blueprint.obsidian_clay
     ):
-        # print(minutes, "# build obsidian robot")
         states.add(
             replace(
                 state,
@@ -97,7 +95,6 @@ def options(
         )
 
     if state.clay_robot < max_clay and state.ore >= blueprint.clay_ore:
-        # print(minutes, "# build clay robot")
         states.add(
             replace(
                 state,
@@ -110,7 +107,6 @@ def options(
         )
 
     if state.ore_robot < max_ore and state.ore >= blueprint.ore:
-        # print(minutes, "# build ore_robot")
         states.add(
             replace(
                 state,
@@ -122,7 +118,6 @@ def options(
             )
         )
 
-    # print(minutes, "or pause")
     states.add(
         replace(
             state,
