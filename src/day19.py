@@ -152,26 +152,34 @@ def all_options(
         new_states |= opts
         geodes.add(new_geode)
 
+    # Ok to pause building once but too may pauses are bad.
+    # limit_robots = max(st.ore_robot + st.clay_robot + st.obsidian_robot + st.geode_robot for st in new_states) - 4
+    # new_states = { st for st in new_states if st.ore_robot + st.clay_robot + st.obsidian_robot + st.geode_robot >= limit_robots }
+
     if len(geodes) > 1:
         # assume more geodes is always better
         best_geode = max(geodes)
-        new_states = {st for st in new_states if st.geode >= best_geode-2}
+        new_states = {st for st in new_states if st.geode >= best_geode - 2}
 
-    print(f"{minutes=} {len(new_states)=}, {max(st.geode_robot for st in new_states)} {max(geodes)}")
+    print(
+        f"{minutes=} {len(new_states)=}, {max(st.geode_robot for st in new_states)} {max(geodes)}"
+    )
     return new_states, geode_robots + (1 if filter_geode_robots else 0)
 
 
-def best(
-    blueprint: Blueprint,
-    state: State, max_minutes:int =24
-) -> int:
+def best(blueprint: Blueprint, state: State, max_minutes: int = 24) -> int:
     options = {state}
     geode_robots = 0
-    max_ore = max(blueprint.ore-1, blueprint.clay_ore, blueprint.obsidian_ore, blueprint.geode_ore)
+    max_ore = max(
+        blueprint.ore - 1,
+        blueprint.clay_ore,
+        blueprint.obsidian_ore,
+        blueprint.geode_ore,
+    )
     max_clay = blueprint.obsidian_clay
     max_obsidian = blueprint.geode_obsidian
 
-    for minutes in range(1, max_minutes+1):
+    for minutes in range(1, max_minutes + 1):
         options, geode_robots = all_options(
             blueprint, options, minutes, max_ore, max_clay, max_obsidian, geode_robots
         )
@@ -181,9 +189,9 @@ def best(
     return value
 
 
-#assert best(Blueprint(1, 4, 2, 3, 14, 2, 7), State(), 3, 7, 7) == 9
-#print("ok")
-#exit()
+# assert best(Blueprint(1, 4, 2, 3, 14, 2, 7), State(), 3, 7, 7) == 9
+# print("ok")
+# exit()
 
 
 def score_1(data: list[str]) -> int:
@@ -193,7 +201,7 @@ def score_1(data: list[str]) -> int:
 test_score = score_1(TEST)
 print("test", test_score)
 assert test_score == EXPECTED_1
-#print("part 1", score_1(DATA))
+# print("part 1", score_1(DATA))
 
 
 def score_2(data: list[str]) -> int:
@@ -202,6 +210,7 @@ def score_2(data: list[str]) -> int:
         v *= best(bp, State(), 32)
 
     return v
+
 
 EXPECTED_2 = 3472
 
