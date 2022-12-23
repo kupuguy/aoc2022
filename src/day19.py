@@ -55,11 +55,7 @@ def parse(data: list[str]) -> Generator[Blueprint, None, None]:
 
 
 def options(
-    blueprint: Blueprint,
-    state: State,
-    max_ore: int,
-    max_clay: int,
-    max_obsidian: int,
+    blueprint: Blueprint, state: State, max_ore: int, max_clay: int, max_obsidian: int
 ) -> set[State]:
     """Find all possible options for the next step"""
     states = set()

@@ -37,13 +37,7 @@ def parse(
     for line in data:
         groups = re.match("move (\d+) from (\d+) to (\d+)", line)
         if groups:
-            moves.append(
-                (
-                    int(groups[1]),
-                    int(groups[2]),
-                    int(groups[3]),
-                )
-            )
+            moves.append((int(groups[1]), int(groups[2]), int(groups[3])))
     return stacks, moves
 
 

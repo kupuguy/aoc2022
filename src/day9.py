@@ -101,11 +101,7 @@ def show(h, t):
             elif c == 0 and r == 0:
                 print("s", sep="", end="")
             else:
-                print(
-                    ".",
-                    sep="",
-                    end="",
-                )
+                print(".", sep="", end="")
         print()
     print()
 
