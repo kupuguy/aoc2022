@@ -30,8 +30,13 @@ def show(elves: set[complex], sad_elves: set[complex]):
     ymin, ymax = int(min(x.imag for x in elves)), int(max(x.imag for x in elves))
     for y in range(ymin - 1, ymax + 2):
         print(
-            "".join( "*" if x + y * 1j in elves and x + y * 1j  in sad_elves else
-                "#" if x + y * 1j in elves else "." for x in range(xmin - 1, xmax + 2)
+            "".join(
+                "*"
+                if x + y * 1j in elves and x + y * 1j in sad_elves
+                else "#"
+                if x + y * 1j in elves
+                else "."
+                for x in range(xmin - 1, xmax + 2)
             )
         )
     print()
@@ -63,7 +68,7 @@ def move_sad_elves(
     for e in sad_elves:
         for a, b, c in directions:
             possible = e + b
-            if e+a in elves or possible in elves or e+c in elves:
+            if e + a in elves or possible in elves or e + c in elves:
                 continue
             consider[possible] += 1
             potential[e] = possible
